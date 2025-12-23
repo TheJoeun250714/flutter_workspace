@@ -1,17 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class MainBody extends StatelessWidget {
   const MainBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-        '메인 화면 영역',
-        style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold
-        ),
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            '기초 문법 연습장',
+            style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 40),
+
+          ElevatedButton(
+            onPressed: () => context.go("/if"),
+            child: const Text(
+              'IF문 배우기',
+              style: TextStyle(fontSize: 18, color: Colors.green),
+            ),
+          ),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () => context.go("/for"),
+            child: const Text(
+              'For문 배우기',
+              style: TextStyle(fontSize: 18, color: Colors.green),
+            ),
+          ),
+        ],
       ),
     );
   }

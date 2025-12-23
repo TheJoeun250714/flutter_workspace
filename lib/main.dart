@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_workspace/basics/IntroApp.dart';
+import 'package:flutter_workspace/basics/for_screen.dart';
+import 'package:flutter_workspace/basics/if_screen.dart';
 import 'package:flutter_workspace/screens/main_screen.dart';
+import 'package:go_router/go_router.dart';
 // google 에서 기본으로 제공하는 예쁜 css 테마 사용
 // 개발자가 만들어놓았고, 원하는 디자인이 있다면 삭제
 // 되도록이면 초반 유지
@@ -13,9 +16,28 @@ import 'package:flutter_workspace/screens/main_screen.dart';
  * custom_fab        = +버튼
  * custom_drawer     = 사이드 메뉴
  */
+
+// GoRouter 설정
+final GoRouter _router = GoRouter(
+  // 기본 메인 주소
+  initialLocation: '/',
+  routes: [
+    GoRoute(
+        path: "/",
+    builder: (context, state) => const MainScreen(),
+    ),
+    GoRoute(
+      path: "/if",
+      builder: (context, state) => const IfScreen(),
+    ),
+    GoRoute(
+      path: "/for",
+      builder: (context, state) => const ForScreen(),
+    ),
+  ]
+);
+
 void main() {
-  // 메인으로 시작할 객체 명칭 선택
-  // 1. 앱을 실행하면 이 함수가 제일 먼저 실행
   runApp(CustomIntroApp());
 }
 
@@ -25,9 +47,10 @@ class CustomIntroApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   return MaterialApp(
+   return MaterialApp.router(
      debugShowCheckedModeBanner: false,
-     home: const MainScreen(),
+     routerConfig: _router,
+     title:'Flutter 기초 문법'
    );
   }
 }
