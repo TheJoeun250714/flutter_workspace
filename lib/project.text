@@ -1,0 +1,21 @@
+폴더 PATH의 목록입니다.
+볼륨 일련 번호는 0411-212E입니다.
+E:.
+|   main.dart
+|   project.text
+|   
++---basics
+|       for_screen.dart
+|       if_screen.dart
+|       IntroApp.dart
+|       
++---screens
+|       main_screen.dart
+|       
+\---widgets
+        custom_app_bar.dart
+        custom_bottom_nav.dart
+        custom_drawer.dart
+        custom_fab.dart
+        main_body.dart
+        

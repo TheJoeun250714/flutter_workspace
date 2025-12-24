@@ -2,47 +2,46 @@ import 'package:flutter/material.dart';
 import 'package:flutter_workspace/widgets/custom_app_bar.dart';
 import 'package:go_router/go_router.dart';
 
-/*
-StatelessWidget = 정적인 위젯으로 페이지의 변화가 없이 단순 css 나 데이터 확인
-
-StatefulWidget  = 동적인 위젯으로 페이지 내부에 데이터 변동이 있을 경우 사용하는 위젯
- */
 class IfScreen extends StatefulWidget {
-  const IfScreen({super.key}); // 생성자로 IfScreen 객체를 외부에서 호출하여 사용할 때 필요
+  const IfScreen({super.key});
 
   @override
-  /*
-  State = 변하는 데이터를 관리하는 상태 클래스
-  IfScreen = IfScreen 이라는 위젯의 상태
-  IfScreen 의 위젯 상태를 담당하는 클래스
-
-  createState() = 상태를 만드는 함수
-
-  플러터가 변수관리와 화면그리기를 분리하여 앱 관리를 유용하게 할 수 있도록 하는 기능
-  State<IfScreen> createState() =>/* return */ _IfScreenState(); 필수가 아니고
-  한 번에 하나의 class 에서 작성 가능하나 추후 에러 발생
-  변수 데이터 로직 꼬임, 변수와 화면을 분리함으로써
-  매번 화면 ui를 호출해야하는 상황이 발생한다.
-  하지만 현재와 같이 상태와 ui를 분리하는 코드를 작성하면
-  화면은 그대로 존재하는채로 데이터만 변경되고 변경된 데이터가 반영된 상태로 화면 유지
-   */
-  State<IfScreen> createState() => /* return */ _IfScreenState();
+  State<IfScreen> createState() => _IfScreenState();
 }
 
-// 모든 함수와 클래스 변수이름 앞에 _ 를 붙이면 모두 private
-// 이 화면 안에서만 사용되는 class
 class _IfScreenState extends State<IfScreen> {
-  int number = 0;
+  int likeCount = 0;
+  // 함수 : 좋아요 버튼을 눌렀을 때 실행
 
+  // 좋아요버튼기능
+  // dart 언어에서는 변수명칭이나 함수명칭에 영어 숫자 이외 다른 언어로 작성하는 것은 XXX
+  // 반환값없이 기능 실행
+  void likeButton() {
+    setState(() {
+      likeCount = likeCount + 1;
+    });
+  }
+  // resetButton 생성
+
+  void resetButton(){
+    setState(() {
+      likeCount = 0;
+    });
+  }
+
+
+
+
+  // react 에서는 return 전에 js     기능 작성했다면
+  // dart  에서는 Widget 전에 dart 언어로 기능에 대하여 작성할 수 있다.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // 개발자가 만들어낸 상단바가 아니라 구글 플러터 개발자가 만들어낸 상단바
-      // 각 상단바에는 title을 이용해서 어떤 페이지인지 표기 가능
       appBar: AppBar(
         title: Text("if문 예제"),
         backgroundColor: Colors.blue,
         leading: IconButton(
+          /* 익명함수 이면서 {} 를 생략할 때는 매개변수 자리와 기능의 자리를 구분하기 위하여 => 사용 */
           onPressed: () => context.go('/'),
           icon: Icon(Icons.arrow_back),
         ),
@@ -51,50 +50,48 @@ class _IfScreenState extends State<IfScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('버튼을 눌러보세요'),
-            SizedBox(height: 20),
+            // 본문 내부에서 제목
             Text(
-              '$number',
-              style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
+              '하트를 눌러주세요!!',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 40), // 클래스 와 클래스 사이의 높이 간격 설정
+            Text(
+              '$likeCount',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 40),
+            // IF문을 활용해서 조건에 따라 다른 메세지 표시
+            // 나중에 class 나 함수화로 변형하여 재사용 가능하도록 수정 가능
+            if (likeCount == 0)
+              Text(
+                '아직 좋아요가 없어요.😂',
+                style: TextStyle(fontSize: 18, color: Colors.grey),
+              )
+            else if (likeCount < 5)
+              Text(
+                '좋아요를 눌러주셔서 감사합니다.!!!💕',
+                style: TextStyle(fontSize: 18, color: Colors.blue),
+              )
+            else
+              Text(
+                '인기 폭발! 대박이네요. 🎉',
+                style: TextStyle(fontSize: 20, color: Colors.red),
+              ),
+            ElevatedButton(
+              // onClick = 마우스로 클릭  onPressed = 손가락으로 화면 누름
+              onPressed: likeButton,
+              //  스타일이 한가지일 경우에는 style: 묶은 형태로 작성하지 않고 단일로 작성 가능
+              //   , child: Icon(Icons.favorite, color: Colors.pink,))
+              child: Icon(Icons.favorite, color: Colors.pink),
             ),
             SizedBox(height: 20),
+            // 리셋 버튼 생성 grey
             ElevatedButton(
-              // 모든 함수에서는 한 줄 코드 작성의 경우 {} 생략 가능
-              // 다수의 코드 작성의 경우는 {} 필히 작성 후 내부에 코드 작성
-              onPressed: () {
-                setState(() {
-                  number = number + 1; // 숫자를 1 씩 증가
-                });
-              },
-              child: Text('숫자 올리기'),
+            //  onPressed:/* 함수 이름을 작성하지 않은 익명 함수로 기능 사용 */ () /*dart 언어에서는 => 함수가 무의미하여 사용 하지 않고 오직 매개변수와 기능들이 작성될 중 괄호만 사용 */ {
+              onPressed: resetButton  ,
+              child: Text('리셋'),
             ),
-            ElevatedButton(
-              // 모든 함수에서는 한 줄 코드 작성의 경우 {} 생략 가능
-              // 다수의 코드 작성의 경우는 {} 필히 작성 후 내부에 코드 작성
-              onPressed: () {
-                setState(() {
-                  number = number - 1; // 숫자를 1 씩 증가
-                });
-              },
-              child: Text('숫자 내리기'),
-            ),
-            ElevatedButton(
-              // 모든 함수에서는 한 줄 코드 작성의 경우 {} 생략 가능
-              // 다수의 코드 작성의 경우는 {} 필히 작성 후 내부에 코드 작성
-              onPressed: () {
-                setState(() {
-                  number = 0;
-                });
-              },
-              child: Text('숫자 초기화'),
-            ),
-            /*
-            * 숫자 내기리 버튼 추가
-            * ElevatedButton(),
-            * 숫자 초기화 버튼 추가
-            * ElevatedButton()
-            * */
-
           ],
         ),
       ),
