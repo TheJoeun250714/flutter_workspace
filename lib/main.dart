@@ -4,6 +4,7 @@ import 'package:flutter_workspace/basics/for_screen.dart';
 import 'package:flutter_workspace/basics/if_screen.dart';
 import 'package:flutter_workspace/screens/main_screen.dart';
 import 'package:go_router/go_router.dart';
+
 // google 에서 기본으로 제공하는 예쁜 css 테마 사용
 // 개발자가 만들어놓았고, 원하는 디자인이 있다면 삭제
 // 되도록이면 초반 유지
@@ -17,41 +18,66 @@ import 'package:go_router/go_router.dart';
  * custom_drawer     = 사이드 메뉴
  */
 
-// GoRouter 설정
-final GoRouter _router = GoRouter(
-  // 기본 메인 주소
+/*
+  flutter 는 비공개변수와 공개변수를 _로 구분
+  Private(_router) : 같은 파일 내에서만 접근 가능
+                     다른 파일에서는 이 변수를 사용할 수 없음
+                     외부에 노출할 필요 없는 내부 구현
+
+  Public(router)   : 다른 파일에서도 import하면 접근 가능
+                      외부에 공개되는 변수
+
+   GoRouter 설정
+   GoRouter 생성자를 이용해서 객체를 생성하고
+   _router 변수이름에 저장
+ */
+// 아래 하위 코드에서 _router 내부에 존재하는 데이터 수정 불가! 상수처리하고
+// 외부에서 직접적으로 접근할 수 없도록 비공개처리한 프라이빗 변수
+/*
+아래 _router 와 router 변수는 각각 다른 상수 처리
+router 변수는 외부 코딩에서 사용 가능한 상수
+final GoRouter router = GoRouter(
   initialLocation: '/',
+  routes: [GoRoute(path: "/", builder: (context, state) => const MainScreen())],
+);
+_router 변수는 내부 코딩에서 사용 가능한 비공개 상수
+
+*/
+
+final GoRouter _router = GoRouter(
+  // 기본 메인 주소 = 앱이 처음 시작될 때 이동할 기본 경로 설정
+  initialLocation: '/',
+  // 앱에서 사용할 모든 경로(화면)을 정의하는 리스트 작성
+  /*
+  builder: (context, state) => const MainScreen()),
+
+  고객님 path: "/" 이 경로로 이동하시면
+  builder 이런 화면이 보일 거에요.
+  context = App에서 각 화면이 어디에 존재하는지 알려주는 주소
+  state   = URL에서 가져온 추가 정보들을 담고 있는 변수 = 보통 null 상태
+            나중에는 id 값이나 로그인한 데이터 값을 담을 수 있다.
+            state.params['id'] 과 같은 형태로 변형하여 사용
+   */
   routes: [
-    GoRoute(
-        path: "/",
-    builder: (context, state) => const MainScreen(),
-    ),
-    GoRoute(
-      path: "/if",
-      builder: (context, state) => const IfScreen(),
-    ),
-    GoRoute(
-      path: "/for",
-      builder: (context, state) => const ForScreen(),
-    ),
-  ]
+    GoRoute(path: "/", builder: (context, state) => const MainScreen()),
+    GoRoute(path: "/if", builder: (context, state) => const IfScreen()),
+    GoRoute(path: "/for", builder: (context, state) => const ForScreen()),
+  ],
 );
 
 void main() {
   runApp(CustomIntroApp());
 }
 
-
 class CustomIntroApp extends StatelessWidget {
   const CustomIntroApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-   return MaterialApp.router(
-     debugShowCheckedModeBanner: false,
-     routerConfig: _router,
-     title:'Flutter 기초 문법'
-   );
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      routerConfig: _router,
+      title: 'Flutter 기초 문법',
+    );
   }
 }
-

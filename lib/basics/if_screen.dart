@@ -8,6 +8,8 @@ class IfScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
+      // 개발자가 만들어낸 상단바가 아니라 구글 플러터 개발자가 만들어낸 상단바
+      // 각 상단바에는 title을 이용해서 어떤 페이지인지 표기 가능
       appBar: AppBar(
         title: const Text("if문 예제"),
         backgroundColor: Colors.blue,

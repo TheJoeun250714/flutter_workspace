@@ -7,7 +7,8 @@ class MainBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
+      child:
+      Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text(
