@@ -5,6 +5,7 @@ import 'package:flutter_workspace/basics/for_screen.dart';
 import 'package:flutter_workspace/basics/if_screen.dart';
 import 'package:flutter_workspace/basics/while_screen.dart';
 import 'package:flutter_workspace/screens/main_screen.dart';
+import 'package:flutter_workspace/screens/post_screen.dart';
 import 'package:go_router/go_router.dart';
 
 // google 에서 기본으로 제공하는 예쁜 css 테마 사용
@@ -70,6 +71,7 @@ final GoRouter _router = GoRouter(
     GoRoute(path: "/for", builder: (context, state) => const ForScreen()),
     GoRoute(path: "/count", builder: (context, state) => const CountScreen()),
     GoRoute(path: "/while", builder: (context, state) => const WhileScreen()),
+    GoRoute(path: "/insta-main", builder: (context, state) => const PostScreen()),
   ],
 );
 

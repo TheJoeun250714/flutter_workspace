@@ -47,6 +47,14 @@ class MainBody extends StatelessWidget {
               style: TextStyle(fontSize: 18, color: Colors.green),
             ),
           ),
+          SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () => context.go("/insta-main"),
+            child: Text(
+              'Instagram 이동',
+              style: TextStyle(fontSize: 18, color: Colors.green),
+            ),
+          ),
         ],
       ),
     );
