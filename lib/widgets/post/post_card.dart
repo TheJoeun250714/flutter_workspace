@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_workspace/models/Post.dart';
+import 'package:flutter_workspace/widgets/post/post_image.dart';
 
 class PostCard extends StatelessWidget {
   final Post post;
@@ -10,7 +11,7 @@ class PostCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
         children: [
-          PostImge(post: post),
+          PostImage(post: post),
           Divider(), // 게시물마다 실선으로 분류
         ]
 

@@ -71,7 +71,7 @@ final GoRouter _router = GoRouter(
     GoRoute(path: "/for", builder: (context, state) => const ForScreen()),
     GoRoute(path: "/count", builder: (context, state) => const CountScreen()),
     GoRoute(path: "/while", builder: (context, state) => const WhileScreen()),
-    GoRoute(path: "/insta-main", builder: (context, state) => const PostScreen()),
+    GoRoute(path: "/insta-main", builder: (context, state) => PostScreen()),
   ],
 );
 
